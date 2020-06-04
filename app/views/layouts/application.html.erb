@@ -26,7 +26,7 @@
               <li><%= link_to " logout", destroy_user_session_path, method: :delete, notice: 'Signed out successfully.', class: "glyphicon glyphicon-log-out" %></li>
             <% else %>
               <li><%= link_to " Home", root_path, class: "glyphicon glyphicon-home" %></li>
-              <li><%= link_to " About", about_homes_path, class: "glyphicon glyphicon-paperclip" %></li>
+              <li><%= link_to " About", home_about_path, class: "glyphicon glyphicon-paperclip" %></li>
               <li><%= link_to " sign up", new_user_registration_path, class: "glyphicon glyphicon-edit" %></li>
             <li><%= link_to " login", new_user_session_path, notice: "Welcome! You have signed up successfully.", class: "glyphicon glyphicon-log-in" %></li>
             <% end %>

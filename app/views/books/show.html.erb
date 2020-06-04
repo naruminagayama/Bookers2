@@ -17,8 +17,8 @@
   </table>
 
   <% if @book.user == current_user %>
-    <button type="button" class="btn btn-default mt-3 btn-block">
-      <%= link_to "", edit_user_path(@book.user), class: "glyphicon glyphicon-wrench" %>
+    <button type="button">
+      <%= link_to "", edit_user_path(@book.user), class: "glyphicon glyphicon-wrench btn btn-default mt-3 btn-block" %>
     </button>
   <% else %>
     <button type="button" class="btn btn-default mt-3 btn-block">
