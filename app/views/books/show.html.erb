@@ -14,16 +14,23 @@
     <tr>
       <th>introduction</th><td><%= @book.user.introduction %></td>
     </tr>
+      <th>follows</th><td><%= link_to @book.user.follower.count, index_follow_path(@book.user.id) %></td>
+    <tr>
+    </tr>
+      <th>followers</th><td><%= link_to @book.user.followed.count, index_follower_path(@book.user.id) %></td>
   </table>
 
   <% if @book.user == current_user %>
-    <button type="button">
-      <%= link_to "", edit_user_path(@book.user), class: "glyphicon glyphicon-wrench btn btn-default mt-3 btn-block" %>
-    </button>
-  <% else %>
     <button type="button" class="btn btn-default mt-3 btn-block">
       <%= link_to "", user_path(current_user), class: "glyphicon glyphicon-wrench" %>
-  </button>
+    </button>
+  <% end %>
+  <% unless @book.user == current_user %>
+    <% if current_user.following?(@book.user) %>
+      <%= link_to "フォロー外す", unfollow_path(@book.user.id), method: :post, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "フォローする", follow_path(@book.user.id), method: :post, class: "btn btn-success" %>
+    <% end %>
   <% end %>
 
 <h2>New book</h2>

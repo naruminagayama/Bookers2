@@ -2,7 +2,6 @@
 
 <div class="container">
   <div class="row">
-
     <div class="col-xs-3">
 
 <h2 class="pl-3">User info</h2>
@@ -14,17 +13,27 @@
     <tr>
       <th>introduction</th><td><%= @user.introduction %></td>
     </tr>
+      <th>follows</th><td><%= link_to @user.follower.count, index_follow_path %></td>
+    <tr>
+    </tr>
+      <th>followers</th><td><%= link_to @user.followed.count, index_follower_path %></td>
+    <tr>
+    </tr>
   </table>
 
   <% if @user == current_user %>
     <button type="button" class="btn btn-default mt-3 btn-block">
-      <%= link_to "", edit_user_path(@user), class: "glyphicon glyphicon-wrench" %>
-    </button>
-  <% else %>
-    <button type="button" class="btn btn-default mt-3 btn-block">
       <%= link_to "", user_path(current_user), class: "glyphicon glyphicon-wrench" %>
     </button>
   <% end %>
+  <% unless @user == current_user %>
+    <% if current_user.following?(@user) %>
+      <%= link_to "フォロー外す", unfollow_path(@user.id), method: :post, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "フォローする", follow_path(@user.id), method: :post, class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+
 
 <h2>New book</h2>
 <%= form_for(@book) do |f| %>
@@ -61,7 +70,15 @@
   </td>
   <td><%= link_to book.title, book_path(book) %></td>
   <td><%= book.body %></td>
-  <td>いいね</td>
+  <td>
+    <% if book.favorited_by?(current_user) %>
+      <%= link_to "", book_favorites_path(book), method: :delete, class: "glyphicon glyphicon-heart color: red;" %>        
+        <%= book.favorites.count %>
+    <% else %>
+      <%= link_to "", book_favorites_path(book), method: :post, class: "glyphicon glyphicon-heart-empty" %>
+        <%= book.favorites.count %>
+    <% end %>
+  </td>
   <td>コメント数：<%= book.book_comments.count %></td>
 </tr>
 <% end %>
@@ -69,6 +86,5 @@
 </table>
 
     </div>
-
   </div>
 </div>

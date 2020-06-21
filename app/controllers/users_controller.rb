@@ -3,15 +3,27 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-      @user = current_user
-      @users = User.all
-      @book = Book.new
+    @user = current_user
+    @users = User.all
+    @book = Book.new
+  end
+
+  def index_follow
+    @user = User.find(params[:id])
+    @users = @user.follower
+    render 'index_follow'
+  end
+
+  def index_follower
+    @user = User.find(params[:id])
+    @users = @user.followed
+    render 'index_follower'
   end
 
   def show
-  	  @user = User.find(params[:id])
-      @book = Book.new
-  	  @books = @user.books
+  	@user = User.find(params[:id])
+    @book = Book.new
+  	@books = @user.books
   end
 
   def edit

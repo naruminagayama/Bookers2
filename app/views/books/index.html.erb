@@ -14,6 +14,10 @@
     <tr>
       <th>introduction</th><td><%= current_user.introduction %></td>
     </tr>
+      <th>follows</th><td><%= link_to @user.follower.count, index_follow_path(@user.id) %></td>
+    <tr>
+    </tr>
+      <th>followers</th><td><%= link_to @user.followed.count, index_follower_path(@user.id) %></td>
   </table>
 
   <button type="button" class="btn btn-default mt-3 btn-block">

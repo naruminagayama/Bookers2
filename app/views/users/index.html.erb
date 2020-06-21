@@ -12,6 +12,12 @@
     <tr>
       <th>introduction</th><td><%= @user.introduction %></td>
     </tr>
+      <th>follows</th><td><%= link_to @user.follower.count, index_follow_path(@user.id) %></td>
+    <tr>
+    </tr>
+      <th>followers</th><td><%= link_to @user.followed.count, index_follower_path(@user.id) %></td>
+    <tr>
+    </tr>
   </table>
 
   <button type="button" class="btn btn-default mt-3 btn-block">
@@ -49,7 +55,18 @@
   <td>
   	<%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size: "40x40" %>
   </td>
-  <td><%=  user.name %></td>
+  <td><%= user.name %></td>
+  <td>フォロー数：<%= user.follower.count %></td>
+  <td>フォロワー数：<%= user.followed.count %></td>
+  <td>
+    <% unless user == current_user %>
+      <% if current_user.following?(user) %>
+        <%= link_to "フォロー外す", unfollow_path(user.id), method: :post %>
+      <% else %>
+        <%= link_to "フォローする", follow_path(user.id), method: :post %>
+      <% end %>
+    <% end %>
+  </td>
   <td><%= link_to "Show", user_path(user) %></td>
 </tr>
 <% end %>
