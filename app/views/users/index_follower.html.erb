@@ -11,10 +11,10 @@
   <th>image</th><th>name</th><th></th>
 </tr>
 </thead>
-<% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+<% @user.follower_user.where.not(id: @user.id).each do |user| %>
 <tr>
   <td>
-  	<%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size: "40x40" %>
+    <%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size: "40x40" %>
   </td>
   <td><%= user.name %></td>
   <td>フォロー数：<%= user.follower.count %></td>
