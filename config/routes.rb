@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
   get '/home/about' => 'homes#about'
   root 'homes#top'
+
+  get '/search' => 'search#search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
